@@ -1,0 +1,28 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+  <!-- Default (English) localization -->
+  <Script file="localization.lua" />
+  
+  <!-- Scripts -->
+  <Script file="TradeSkillList.lua" />
+  
+  <!-- Tooltip for scanning item info -->
+  
+ 	<GameTooltip name="TradeSkillListScanTooltip" inherits="GameTooltipTemplate">
+ 	  <Scripts>
+ 	    <OnLoad>
+ 	      this:SetOwner(UIParent, "ANCHOR_NONE");
+ 	    </OnLoad>
+ 	  </Scripts>
+ 	</GameTooltip>
+  
+  <!-- Frames -->
+  <Frame name="TradeSkillList" hidden="true">
+    <Scripts>
+      <OnLoad>
+        TradeSkillList_OnLoad();
+      </OnLoad>
+    </Scripts>
+  </Frame>
+</Ui>

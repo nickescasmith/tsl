@@ -1,0 +1,6 @@
+## Interface: 30000
+## Title: TradeSkillList
+## Version: 0.7.2
+## Notes: Creates a cut-and-pasteable HTML list of the trade skills in the currently open trade skill window.
+## Author: Eric Shepherd (the.sheppy@gmail.com)
+TradeSkillList.xml

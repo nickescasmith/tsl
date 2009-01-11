@@ -12,7 +12,7 @@ output the data in the form I needed.
 ## Usage
 1. Install the addon as normal
 2. Bring up the tradeskill window for the skill you want to list
-3. Type /lts into the chat window
+3. Type /tsl into the chat window
 4. Cut and paste the message that appears into a boards post using ctrl-a then ctrl-c to copy it in wow
 
  

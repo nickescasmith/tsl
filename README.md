@@ -1,4 +1,4 @@
-*ListTradeSkills*
+# ListTradeSkills
 This is a backup of my fork of the ListTradeSkills addon
 
 Hopefully the original author will be updating the offical copy to 

@@ -77,7 +77,14 @@ function StartBuildingSkillList(cmd)
     
       numLines = TradeSkillListScanTooltip:NumLines();
 
-      itemList = itemList .. '[item]'.. skillName .. '[/item]\r\n';
+      local itemName;
+      local itemLink;
+      local itemRarity;
+      local itemLevel;
+ 
+      itemName, itemLink, itemRarity, itemLevel = GetItemInfo(itemId);
+
+      itemList = itemList .. '[item]'.. skillName .. '[/item] ' .. ' (' .. itemLevel .. ')\r\n';
       
     end
   end

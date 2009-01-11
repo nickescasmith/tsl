@@ -25,6 +25,7 @@ function StartBuildingSkillList(cmd)
   local i;
   local doneFirstTopLink = 0;
   local doingEnchants = 0;
+  local player_name
 
   DEFAULT_CHAT_FRAME:AddMessage(TRADESKILL_STARTING);
   
@@ -37,19 +38,17 @@ function StartBuildingSkillList(cmd)
     return;
   end
   
+  -- Add a header to the tradeskill list with the character name, tradeskill type, and level
   
-  local player_name
   player_name= UnitName("player");
 
-  itemList = 'Tradeskills for ' .. player_name .. "\r\n\r\n";
+  itemList = 'Tradeskills for ' .. player_name .. "\r\n";
+  itemList = itemList .. tradeSkillName .. " (" .. currentLevel .. "/" .. maxLevel .. ")\n\r\n\r"
 
   -- Now we iterate over the skill list
   
   numSkills = GetNumTradeSkills();      -- Includes headers
 
-  tsName, tsLevel, tsMaxLevel = GetTradeSkillLine()
-  itemList = itemList .. tsName .. " skill " .. tsLevel .. " of " .. tsMaxLevel .. "\n\r"
-  
   for curSkillIndex=1, numSkills do
     local found;
     local i;

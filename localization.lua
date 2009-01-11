@@ -7,6 +7,9 @@
 TRADESKILL_SLASHCMD_1       = "/tradeskilllist";
 TRADESKILL_SLASHCMD_2       = "/tsl";
 
+-- XML output command
+TRADESKILL_SLASHCMD_3       = "/tslx";
+
 -- For parsing trade skill list results
 
 TRADESKILL_HEADER_TYPE      = "header";

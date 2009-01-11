@@ -16,3 +16,6 @@ output the data in the form I needed.
 4. Cut and paste the message that appears into a boards post using ctrl-a then ctrl-c to copy it in wow
 
  
+## XML output
+In addition to the /tsl comment there is a /tslx command which outputs the same information as an XML
+document. This is a work in progress at the moment, use at your own risk!

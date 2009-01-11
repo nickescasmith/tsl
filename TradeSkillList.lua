@@ -83,6 +83,9 @@ function StartBuildingSkillList(cmd)
       local itemLevel;
  
       itemName, itemLink, itemRarity, itemLevel = GetItemInfo(itemId);
+      if itemLevel == null then
+          itemLevel = "?"
+      end
 
       itemList = itemList .. '[item]'.. skillName .. '[/item] ' .. ' (' .. itemLevel .. ')\r\n';
       

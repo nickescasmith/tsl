@@ -1,25 +1,10 @@
 --
--- (this version Hacked by John Burton (john.burton@jbmail.com) to 
--- output the BBCOde I need
+-- Addon to list users tradeskills in a form that can be pasted onto a phpbb3 board
 --
--- TradeSkillList.lua
--- by Eric Shepherd
--- 
+-- This addon is based on TradeSkillList.lua by Eric Shepherd
 --
--- Version 0.7.2
+-- See http://github.com/yarral/tsl
 --
--- History:
---
--- 0.7.2: Fixed enchanting links to Thottbot to work correctly.
--- 0.7.1: Updated for WoW 3.0.
--- 0.7: Updated for WoW 2.3.  Also, Thottbot links now give tooltips on hover.
--- 0.6.2: Make the scroll bar work.
--- 0.6.1: Updated for WoW 2.2 compatibility.
--- 0.6: Now shows links to each subsection at the top of the generated page
--- 0.5.2: Fixed to show enchanting rank properly.  Also uses color to determine
---        rarity, since gems don't have "rare/uncommon/epic" tags in them.
--- 0.5.1: Fixed to let you close the window after opening it a second time
--- 0.5: Initial release
 --
 
 function TradeSkillList_Close()
@@ -61,6 +46,9 @@ function StartBuildingSkillList(cmd)
   -- Now we iterate over the skill list
   
   numSkills = GetNumTradeSkills();      -- Includes headers
+
+  tsName, tsLevel, tsMaxLevel = GetTradeSkillLine()
+  itemList = itemList .. tsName .. " skill " .. tsLevel .. " of " .. tsMaxLevel .. "\n\r"
   
   for curSkillIndex=1, numSkills do
     local found;

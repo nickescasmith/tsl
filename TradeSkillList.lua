@@ -42,8 +42,7 @@ function StartBuildingSkillList(cmd)
   
   player_name= UnitName("player");
 
-  itemList = 'Tradeskills for ' .. player_name .. "\r\n";
-  itemList = itemList .. tradeSkillName .. " (" .. currentLevel .. "/" .. maxLevel .. ")\n\r\n\r"
+  itemList = 'Tradeskills for ' .. player_name .. " - " .. tradeSkillName .. " (" .. currentLevel .. "/" .. maxLevel .. ")\n\r"
 
   -- Now we iterate over the skill list
   

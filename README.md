@@ -19,3 +19,5 @@ output the data in the form I needed.
 ## XML output
 In addition to the /tsl comment there is a /tslx command which outputs the same information as an XML
 document. This is a work in progress at the moment, use at your own risk!
+
+There is now an experimental /tslb command to use some unified code to generate the PHPBB but not quite working

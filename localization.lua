@@ -10,6 +10,9 @@ TRADESKILL_SLASHCMD_2       = "/tsl";
 -- XML output command
 TRADESKILL_SLASHCMD_3       = "/tslx";
 
+-- PHPBB output command
+TRADESKILL_SLASHCMD_4       = "/tslb";
+
 -- For parsing trade skill list results
 
 TRADESKILL_HEADER_TYPE      = "header";

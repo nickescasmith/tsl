@@ -125,7 +125,6 @@ function tslBuildSkillList()
       table.insert(tsData.items, data)
       
     end
-  DEFAULT_CHAT_FRAME:AddMessage("Count: " .. #tsData.items)
 
   end
     return tsData

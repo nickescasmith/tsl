@@ -7,42 +7,54 @@
 --
 --
 
+--
+-- Some strings for example "Food & Drink" need to be quoted in XML
+-- This is not a fully working function - TODO: Improve, but it's good enough for now
+--
+function tslQuoteXML(str)
+   return string.replace(str, "&", "&amp;")
+end
+
 
 --
 -- Generate XML formatted data from the tradeskill data list
--- TODO: Properly "quote" attribtes in case it contains stuff like & characters 
 --
 
 function tslGenerateXML(tsData)
   local itemList = '<?xml version="1.0"?>\n'
   itemList = itemList .. '<skills user="' .. tsData.name .. '" type="' .. tsData.type .. '">\n'
 
-  for index, item in pairs(tsData.items) do
-     itemList = itemList .. '    <item name="' .. item.name .. '" level="' .. item.level .. '">\n';
+  for index, group in pairs(tsData.items) do
+     itemList = itemList .. '  <group name="' .. tslQuoteXML(group.title) .. '">\n'
+     for index2, item in pairs(group.items) do
+        itemList = itemList .. '      <item name="' .. tslQuoteXML(item.name) .. '" level="' .. item.level .. '">\n';
+     end
+     itemList  = itemList .. "  </group>\n"
   end
 
   itemList = itemList .. '</skills>\n'
   return itemList
 end
 
-
 --
 -- Generate PHPBB3 formatted data from the tradeskill data list
--- (Assumes the [item] bbcode exists, will implement a more generic one
+-- (Assumes the [item] bbcode exists, will implement a more generic one which colors items etc.)
 --
 function tslGeneratePHPBB3(tsData)
-  itemList =  tsData.type .. " for " .. tsData.name .. "\n"
+  itemList = tsData.type .. ' for ' .. tsData.name .. '\n\n'
 
-  for index, item in pairs(tsData.items) do
-     itemList = itemList .. '[item]' .. item.name .. ' (' .. item.level .. ')\n';
+  for index, group in pairs(tsData.items) do
+     itemList = itemList .. '[b]' .. group.title .. '[/b]\n'
+     for index2, item in pairs(group.items) do
+        itemList = itemList .. '[item]' ..item.name .. '[/item] (' .. item.level .. ')\n';
+     end
   end
-
   return itemList
 end
 
-
 --
 -- Generate HTML formatted data from the tradeskill data list
+-- (Currently not working due to changed data structures for groups)
 --
 function tslGenerateHTML(tsData)
   itemList =  tsData.type .. " for " .. tsData.name .. "<br><br?\n"
@@ -96,6 +108,7 @@ function tslBuildSkillList()
   
   numSkills = GetNumTradeSkills();      -- Includes headers
 
+  local group;
   for curSkillIndex=1, numSkills do
     local found;
     local i;
@@ -107,14 +120,10 @@ function tslBuildSkillList()
     skillName, skillType, _, _ = GetTradeSkillInfo(curSkillIndex);
     
     if (skillType == TRADESKILL_HEADER_TYPE) then
-      local tweakedName = skillName.gsub(skillName, " ", "&nbsp;");
-      doneFirstTopLink = 1;
-      if (skillName == TRADESKILL_ENCHANT) then
-        doingEnchants = 1;
-      else
-        doingEnchants = 0;
-      end
-      -- itemList = itemList .. '\r\n[b]' .. skillName .. '[/b]\r\n';
+      table.insert(tsData.items, group)
+      group = {}
+      group.title = skillName
+      group.items = {}
     else
       itemLink = GetTradeSkillItemLink(curSkillIndex);
       found, _, color, itemString = string.find(itemLink, "^|c(%x+)|H(.+)|h%[.+%]");
@@ -138,12 +147,14 @@ function tslBuildSkillList()
       data.name = skillName
       data.color = color;
 
-      table.insert(tsData.items, data)
+      table.insert(group.items, data)
       
     end
 
   end
-    return tsData
+  -- Might be one group not added so add it now
+  table.insert(tsData.items, group)
+  return tsData
 end
 
 

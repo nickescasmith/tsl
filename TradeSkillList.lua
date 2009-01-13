@@ -10,7 +10,8 @@
 
 --
 -- Generate XML formatted data from the tradeskill data list
--- 
+-- TODO: Properly "quote" attribtes in case it contains stuff like & characters 
+--
 
 function tslGenerateXML(tsData)
   local itemList = '<?xml version="1.0"?>\n'
@@ -34,6 +35,20 @@ function tslGeneratePHPBB3(tsData)
 
   for index, item in pairs(tsData.items) do
      itemList = itemList .. '[item]' .. item.name .. ' (' .. item.level .. ')\n';
+  end
+
+  return itemList
+end
+
+
+--
+-- Generate HTML formatted data from the tradeskill data list
+--
+function tslGenerateHTML(tsData)
+  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br?\n"
+
+  for index, item in pairs(tsData.items) do
+     itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n';
   end
 
   return itemList
@@ -121,6 +136,7 @@ function tslBuildSkillList()
       local data = {}
       data.level = itemLevel
       data.name = skillName
+      data.color = color;
 
       table.insert(tsData.items, data)
       
@@ -210,6 +226,12 @@ function StartBuildingPHPBBSkillList(cmd)
   tslDisplayResults(itemList)
 end
 
+function StartBuildingHTMLSkillList(cmd)
+  local tsData = tslBuildSkillList()
+  local itemList = tslGenerateHTML(tsData)
+  tslDisplayResults(itemList)
+end
+
 
 function TradeSkillList_Close()
   TradeSkillListFrame:Hide();
@@ -224,4 +246,7 @@ function TradeSkillList_OnLoad()
 
   SLASH_TRADESKILLPHP1 = TRADESKILL_SLASHCMD_4;
   SlashCmdList["TRADESKILLPHP"] = StartBuildingPHPBBSkillList;
+
+  SLASH_TRADESKILLHTML1 = TRADESKILL_SLASHCMD_5;
+  SlashCmdList["TRADESKILLHTML"] = StartBuildingHTMLSkillList;
 end

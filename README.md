@@ -9,6 +9,12 @@ Good though this addon is, it didn't output the text in the format I
 needed for the boards so I hacked out the html code and added code to 
 output the data in the form I needed.
 
+This verison is meant for a specific use for my guild website. Although
+you are welcome to use it I suggest that you look at the original first as I'd hope to one day
+merge anything useful from here into that.
+
+TODO: Find URL to quote for original version
+
 ## Usage
 1. Install the addon as normal
 2. Bring up the tradeskill window for the skill you want to list
@@ -17,7 +23,5 @@ output the data in the form I needed.
 
  
 ## XML output
-In addition to the /tsl comment there is a /tslx command which outputs the same information as an XML
-document. This is a work in progress at the moment, use at your own risk!
-
-There is now an experimental /tslb command to use some unified code to generate the PHPBB but not quite working
+Use /tslx to get XML output
+Use /tslb to get PHPBB output (for my board using the custom item tag)

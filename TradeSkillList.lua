@@ -90,11 +90,11 @@ function tslBuildSkillList()
 
 
   -- First, get the name of the currently open trade skill window.
-    tradeSkillName, currentLevel, maxLevel = GetTradeSkillLine();
+  tradeSkillName, currentLevel, maxLevel = GetTradeSkillLine();
   
   if tradeSkillName == TRADESKILL_UNKNOWN then
     DEFAULT_CHAT_FRAME:AddMessage(TRADESKILL_NONE_OPEN);
-    return;
+    return tsData;
   end
   
   -- Add a header to the tradeskill list with the character name, tradeskill type, and level

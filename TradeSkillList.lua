@@ -57,11 +57,15 @@ end
 -- (Currently not working due to changed data structures for groups)
 --
 function tslGenerateHTML(tsData)
-  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br?\n"
+  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br>\n"
 
-  for index, item in pairs(tsData.items) do
-     itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n';
+  for index, group in pairs(tsData.items) do
+     itemList = itemList .. '<b>' .. group.title .. '</b>\n'
+     for index2, item in pairs(group.items) do
+         itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n';
+     end
   end
+
 
   return itemList
 end

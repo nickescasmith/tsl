@@ -21,18 +21,18 @@ end
 --
 
 function tslGenerateXML(tsData)
-  local itemList = '<?xml version="1.0"?>\n\r'
+  local itemList = '<?xml version="1.0"?>\r\n'
   itemList = itemList .. '<skills user="' .. tsData.name .. '" type="' .. tsData.type .. '">\r\n'
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '  <group name="' .. tslQuoteXML(group.title) .. '">\n\r'
+     itemList = itemList .. '  <group name="' .. tslQuoteXML(group.title) .. '">\r\n'
      for index2, item in pairs(group.items) do
-        itemList = itemList .. '      <item name="' .. tslQuoteXML(item.name) .. '" level="' .. item.level .. '">\n\r';
+        itemList = itemList .. '      <item name="' .. tslQuoteXML(item.name) .. '" level="' .. item.level .. '">\r\n';
      end
-     itemList  = itemList .. "  </group>\n\r"
+     itemList  = itemList .. "  </group>\r\n"
   end
 
-  itemList = itemList .. '</skills>\n\r'
+  itemList = itemList .. '</skills>\r\n'
   return itemList
 end
 
@@ -41,12 +41,12 @@ end
 -- (Assumes the [item] bbcode exists, will implement a more generic one which colors items etc.)
 --
 function tslGeneratePHPBB3(tsData)
-  itemList = tsData.type .. ' for ' .. tsData.name .. '\n\r\n\r'
+  itemList = tsData.type .. ' for ' .. tsData.name .. '\r\n\r\n'
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '[b]' .. group.title .. '[/b]\n\r'
+     itemList = itemList .. '[b]' .. group.title .. '[/b]\r\n'
      for index2, item in pairs(group.items) do
-        itemList = itemList .. '[item]' ..item.name .. '[/item] (' .. item.level .. ')\n\r';
+        itemList = itemList .. '[item]' ..item.name .. '[/item] (' .. item.level .. ')\r\n';
      end
   end
   return itemList
@@ -57,12 +57,13 @@ end
 -- (Currently not working due to changed data structures for groups)
 --
 function tslGenerateHTML(tsData)
-  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br>\n\r"
+  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br>\r\n"
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '<b>' .. group.title .. '</b>\n\r'
+     itemList = itemList .. '<b>' .. group.title .. '</b>\r\n'
      for index2, item in pairs(group.items) do
-         itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n\r';
+         itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\r\n';
+         itemList = itemList .. item.lines
      end
   end
 
@@ -146,11 +147,24 @@ function tslBuildSkillList()
           itemLevel = "?"
       end
 
+      TradeSkillListScanTooltip:ClearLines()
+      TradeSkillListScanTooltip:SetTradeSkillItem(curSkillIndex)
+
+      numLines = TradeSkillListScanTooltip:NumLines()
+
+      local lines = ""
+      for i = 2, numLines do
+          local myText = getglobal("TradeSkillListScanTooltipTextLeft" .. i)
+          local line = myText:GetText()
+          lines = lines .. line .. "<br>\r\n"
+      end
+
+
       local data = {}
       data.level = itemLevel
       data.name = skillName
-      data.color = color;
-
+      data.color = color
+      data.lines = lines
       table.insert(group.items, data)
       
     end

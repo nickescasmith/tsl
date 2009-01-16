@@ -21,18 +21,18 @@ end
 --
 
 function tslGenerateXML(tsData)
-  local itemList = '<?xml version="1.0"?>\n'
-  itemList = itemList .. '<skills user="' .. tsData.name .. '" type="' .. tsData.type .. '">\n'
+  local itemList = '<?xml version="1.0"?>\n\r'
+  itemList = itemList .. '<skills user="' .. tsData.name .. '" type="' .. tsData.type .. '">\r\n'
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '  <group name="' .. tslQuoteXML(group.title) .. '">\n'
+     itemList = itemList .. '  <group name="' .. tslQuoteXML(group.title) .. '">\n\r'
      for index2, item in pairs(group.items) do
-        itemList = itemList .. '      <item name="' .. tslQuoteXML(item.name) .. '" level="' .. item.level .. '">\n';
+        itemList = itemList .. '      <item name="' .. tslQuoteXML(item.name) .. '" level="' .. item.level .. '">\n\r';
      end
-     itemList  = itemList .. "  </group>\n"
+     itemList  = itemList .. "  </group>\n\r"
   end
 
-  itemList = itemList .. '</skills>\n'
+  itemList = itemList .. '</skills>\n\r'
   return itemList
 end
 
@@ -41,12 +41,12 @@ end
 -- (Assumes the [item] bbcode exists, will implement a more generic one which colors items etc.)
 --
 function tslGeneratePHPBB3(tsData)
-  itemList = tsData.type .. ' for ' .. tsData.name .. '\n\n'
+  itemList = tsData.type .. ' for ' .. tsData.name .. '\n\r\n\r'
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '[b]' .. group.title .. '[/b]\n'
+     itemList = itemList .. '[b]' .. group.title .. '[/b]\n\r'
      for index2, item in pairs(group.items) do
-        itemList = itemList .. '[item]' ..item.name .. '[/item] (' .. item.level .. ')\n';
+        itemList = itemList .. '[item]' ..item.name .. '[/item] (' .. item.level .. ')\n\r';
      end
   end
   return itemList
@@ -57,12 +57,12 @@ end
 -- (Currently not working due to changed data structures for groups)
 --
 function tslGenerateHTML(tsData)
-  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br>\n"
+  itemList =  tsData.type .. " for " .. tsData.name .. "<br><br>\n\r"
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '<b>' .. group.title .. '</b>\n'
+     itemList = itemList .. '<b>' .. group.title .. '</b>\n\r'
      for index2, item in pairs(group.items) do
-         itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n';
+         itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\n\r';
      end
   end
 
@@ -181,14 +181,14 @@ function tslDisplayResults(itemList)
   skillFrame:Hide();
   skillFrame:SetPoint("CENTER", "UIParent", "CENTER");
   skillFrame:SetFrameStrata("DIALOG");
-  skillFrame:SetHeight(600);
-  skillFrame:SetWidth(800);
+  skillFrame:SetHeight(500);
+  skillFrame:SetWidth(600);
   skillFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background",
 		edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
 		tile = true, tileSize = 32, edgeSize = 32,
 		insets = { left = 9, right = 9, top = 9, bottom = 9 }
 	});
-	skillFrame:SetBackdropColor(0, 0, 0, 0.8);
+	skillFrame:SetBackdropColor(0, 0, 0, 0.9);
 	
   -- Add the Close button
   

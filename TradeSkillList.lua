@@ -52,6 +52,28 @@ function tslGeneratePHPBB3(tsData)
   return itemList
 end
 
+
+--
+-- Generate PHPBB3 formatted data from the tradeskill data list
+-- (Assumes the [item] bbcode exists, will implement a more generic one which colors items etc.)
+--
+function tslGenerateGenericPHPBB3(tsData)
+  itemList = tsData.type .. ' for ' .. tsData.name .. '\r\n\r\n'
+
+  for index, group in pairs(tsData.items) do
+     itemList = itemList .. '[size=120][b][u]' .. group.title .. '[/u][/b][/size]\r\n'
+     for index2, item in pairs(group.items) do
+        itemList = itemList .. '[color=#' .. item.color .. '][b]' ..item.name .. '[/b][/color] [i]Item level ' .. item.level .. '[/i]\r\n';
+        itemList = itemList .. '[size=85][i]\r\n'
+        for i, line in pairs(item.lines) do
+            itemList = itemList .. "     " .. line .. "\r\n"
+        end
+        itemList = itemList .. '[/i][/size]\r\n'
+  end
+  end
+  return itemList
+end
+
 --
 -- Generate HTML formatted data from the tradeskill data list
 -- (Currently not working due to changed data structures for groups)
@@ -168,7 +190,7 @@ function tslBuildSkillList()
       local data = {}
       data.level = itemLevel
       data.name = skillName
-      data.color = color
+      data.color = string.sub(color, -6)
       data.lines = lines
       table.insert(group.items, data)
       
@@ -257,7 +279,7 @@ end
 function StartBuildingPHPBBSkillList(cmd)
   local tsData = tslBuildSkillList()
   if (tsData ~= null) then
-    local itemList = tslGeneratePHPBB3(tsData)
+    local itemList = tslGenerateGenericPHPBB3(tsData)
   
     tslDisplayResults(itemList)
   end

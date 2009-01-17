@@ -63,7 +63,12 @@ function tslGenerateHTML(tsData)
      itemList = itemList .. '<b>' .. group.title .. '</b>\r\n'
      for index2, item in pairs(group.items) do
          itemList = itemList .. "<font color='#" ..item.color .. "'>".. item.name .. '</font>(' .. item.level .. ')<br>\r\n';
-         itemList = itemList .. item.lines
+         itemList = itemList .. '<blockquote>'
+         for i, line in pairs(item.lines) do
+             itemList = itemList .. line .. '<br>\r\n'
+         end
+         itemList = itemList .. '</blockquote>'
+
      end
   end
 
@@ -99,7 +104,7 @@ function tslBuildSkillList()
   
   if tradeSkillName == TRADESKILL_UNKNOWN then
     DEFAULT_CHAT_FRAME:AddMessage(TRADESKILL_NONE_OPEN);
-    return tsData;
+    return null
   end
   
   -- Add a header to the tradeskill list with the character name, tradeskill type, and level
@@ -152,11 +157,11 @@ function tslBuildSkillList()
 
       numLines = TradeSkillListScanTooltip:NumLines()
 
-      local lines = ""
+      local lines = {}
       for i = 2, numLines do
           local myText = getglobal("TradeSkillListScanTooltipTextLeft" .. i)
           local line = myText:GetText()
-          lines = lines .. line .. "<br>\r\n"
+          table.insert(lines, line)
       end
 
 
@@ -226,7 +231,6 @@ function tslDisplayResults(itemList)
   skillFrame.Box:SetFontObject("ChatFontNormal");
   skillFrame.Box:SetMultiLine(true);
   skillFrame.Scroll:SetScrollChild(skillFrame.Box);
---  skillFrame.Box:SetText(topText .. text);
   skillFrame.Box:SetText(itemList);
 
   skillFrame.Box:HighlightText();  
@@ -241,24 +245,30 @@ end
 
 
 
-function StartBuildingXMLSkillList(cmd)
-  
+function StartBuildingXMLSkillList(cmd)  
   local tsData = tslBuildSkillList()
-  local itemList = tslGenerateXML(tsData)
-  tslDisplayResults(itemList)
+  if (tsData ~= null) then
+    local itemList = tslGenerateXML(tsData)
+    tslDisplayResults(itemList)
+  end
 end
 
 
 function StartBuildingPHPBBSkillList(cmd)
   local tsData = tslBuildSkillList()
-  local itemList = tslGeneratePHPBB3(tsData)
-  tslDisplayResults(itemList)
+  if (tsData ~= null) then
+    local itemList = tslGeneratePHPBB3(tsData)
+  
+    tslDisplayResults(itemList)
+  end
 end
 
 function StartBuildingHTMLSkillList(cmd)
   local tsData = tslBuildSkillList()
-  local itemList = tslGenerateHTML(tsData)
-  tslDisplayResults(itemList)
+  if (tsData ~= null) then
+    local itemList = tslGenerateHTML(tsData)
+    tslDisplayResults(itemList)
+  end
 end
 
 

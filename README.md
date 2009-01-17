@@ -18,10 +18,15 @@ TODO: Find URL to quote for original version
 ## Usage
 1. Install the addon as normal
 2. Bring up the tradeskill window for the skill you want to list
-3. Type /tsl into the chat window
+3. Type /tslb into the chat window
 4. Cut and paste the message that appears into a boards post using ctrl-a then ctrl-c to copy it in wow
+
+## Limiting output to high level items
+You can make the addond only output higher level items by putting the minimum item level after the command
+For example to make a boards post with level 90 or better items do /tslb 90
 
  
 ## XML output
 Use /tslx to get XML output
 Use /tslb to get PHPBB output (for my board using the custom item tag)
+Use /tslh to get HTML output (somewhat experimantal still)

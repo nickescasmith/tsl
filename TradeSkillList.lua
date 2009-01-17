@@ -69,7 +69,7 @@ function tslGenerateGenericPHPBB3(tsData)
             itemList = itemList .. "     " .. line .. "\r\n"
         end
         itemList = itemList .. '[/i][/size]\r\n'
-  end
+     end
   end
   return itemList
 end
@@ -103,7 +103,7 @@ end
 -- return data for tradeskill
 --
 
-function tslBuildSkillList()
+function tslBuildSkillList(lvlLimit)
  local topText = "";
   local text = "";
   local tradeSkillName, currentLevel, maxLevel;
@@ -192,7 +192,10 @@ function tslBuildSkillList()
       data.name = skillName
       data.color = string.sub(color, -6)
       data.lines = lines
-      table.insert(group.items, data)
+      item_level = tonumber(itemLevel)
+      if (item_level == null or item_level >= lvlLimit) then
+         table.insert(group.items, data)
+      end
       
     end
 
@@ -268,7 +271,11 @@ end
 
 
 function StartBuildingXMLSkillList(cmd)  
-  local tsData = tslBuildSkillList()
+  lvl = tonumber(cmd)
+  if lvl == null then 
+     lvl = 0;
+  end
+  local tsData = tslBuildSkillList(lvl)
   if (tsData ~= null) then
     local itemList = tslGenerateXML(tsData)
     tslDisplayResults(itemList)
@@ -277,16 +284,24 @@ end
 
 
 function StartBuildingPHPBBSkillList(cmd)
-  local tsData = tslBuildSkillList()
+  lvl = tonumber(cmd)
+  if lvl == null then 
+     lvl = 0;
+  end
+  local tsData = tslBuildSkillList(lvl)
   if (tsData ~= null) then
-    local itemList = tslGenerateGenericPHPBB3(tsData)
+    local itemList = tslGeneratePHPBB3(tsData)
   
     tslDisplayResults(itemList)
   end
 end
 
 function StartBuildingHTMLSkillList(cmd)
-  local tsData = tslBuildSkillList()
+  lvl = tonumber(cmd)
+  if lvl == null then 
+     lvl = 0;
+  end
+  local tsData = tslBuildSkillList(lvl)
   if (tsData ~= null) then
     local itemList = tslGenerateHTML(tsData)
     tslDisplayResults(itemList)

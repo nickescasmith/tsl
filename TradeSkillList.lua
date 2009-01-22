@@ -61,7 +61,7 @@ function tslGenerateGenericPHPBB3(tsData)
   itemList = tsData.type .. ' for ' .. tsData.name .. '\r\n\r\n'
 
   for index, group in pairs(tsData.items) do
-     itemList = itemList .. '[size=120][b][u]' .. group.title .. '[/u][/b][/size]\r\n'
+     itemList = itemList .. '[size=140][b][u]' .. group.title .. '[/u][/b][/size]\r\n'
      for index2, item in pairs(group.items) do
         itemList = itemList .. '[color=#' .. item.color .. '][b]' ..item.name .. '[/b][/color] [i]Item level ' .. item.level .. '[/i]\r\n';
         itemList = itemList .. '[size=85][i]\r\n'
@@ -124,6 +124,7 @@ function tslBuildSkillList(lvlLimit)
   -- First, get the name of the currently open trade skill window.
   tradeSkillName, currentLevel, maxLevel = GetTradeSkillLine();
   
+  -- if no skill is selected output a message and give up
   if tradeSkillName == TRADESKILL_UNKNOWN then
     DEFAULT_CHAT_FRAME:AddMessage(TRADESKILL_NONE_OPEN);
     return null
@@ -136,7 +137,7 @@ function tslBuildSkillList(lvlLimit)
   tsData.items = {}
 
 
-  -- Now we iterate over the skill list
+  -- Now we iterate over the skills in the list
   
   numSkills = GetNumTradeSkills();      -- Includes headers
 
@@ -187,6 +188,7 @@ function tslBuildSkillList(lvlLimit)
       end
 
 
+      -- We've collected the data so stick it in a table and stash it away
       local data = {}
       data.level = itemLevel
       data.name = skillName
